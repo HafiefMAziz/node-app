@@ -1,0 +1,23 @@
+{
+  "name": "node-app-belajar",
+  "version": "1.0.0",
+  "description": "Belajar NodeJS",
+  "main": "app.mjs",
+  "scripts": {
+    "start": "node app.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HafiefMAziz/node-app.git"
+  },
+  "author": "Hafief Maulana Aziz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HafiefMAziz/node-app/issues"
+  },
+  "homepage": "https://github.com/HafiefMAziz/node-app#readme",
+  "dependencies": {
+    "validator": "^13.9.0"
+  }
+}
