@@ -1,21 +1,40 @@
-import * as contacts from "./contacts.mjs"
-import validator from 'validator';
+import http from 'http';
+import fs from 'fs';
+// const http = require('http');
 
+const port = 3000;
 
-const main = async () =>{
-    try {
-        const nama = await contacts.tulisPertanyaan('Masukan Nama Anda? ');
-        console.log(nama);
-        if (validator.isAlpha(nama, "en-US",{ignore:' -'}) == false) throw "Nama yang dimasukan tidak sesuai format !!";
-    
-        const noHP = await contacts.tulisPertanyaan('Masukan No Telephone Anda? ');
-        if (validator.isMobilePhone(noHP, 'id-ID') == false) throw "No HP yang dimasukan tidak sesuai format !!";
-
-        contacts.simpanContact(nama, noHP);
-
-    } catch (error) {
-        console.log(error);
-    }
-    
+const renderHTML = (path, res) => {
+    fs.readFile(path, (err, data) => {
+        // jika error tampilkan hal 404
+        if (err){
+            res.writeHead(404);
+        // jika berhasil
+        } else {
+            res.write(data);
+        }
+        res.end();
+    })
 }
-main();
+
+// membuat server
+http.createServer((req, res) => {
+    // mengirimkan sebagai html
+    res.writeHead(200, {
+    'Content-Type': 'text/html',
+  })
+    const url = req.url;
+    switch (url){
+        case '/about' :
+            renderHTML('./about.html', res);
+            break;
+        case '/contact':
+            renderHTML('./contact.html', res);
+            break;
+        default :
+            renderHTML('./index.html', res);
+            break;
+    }
+}).listen(port, () => {
+    console.log(`Server is listening on ${port}`);
+});
